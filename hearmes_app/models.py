@@ -4,34 +4,36 @@ from collections import namedtuple
 import json
 import urllib.parse
 
-#AZURE OCR TO TEXT:
-ocr_subscription_key = "e3ce4c5f3d254832b89e0e0e996ecb8f"
-assert ocr_subscription_key
-ocr_base_url = "https://westeurope.api.cognitive.microsoft.com/vision/v1.0/"
-
-
 # Create your models here.
 #TODO: Model to upload document & details: Name, Birthdate, Document
-class Person(models.Model):
+class Migrant(models.Model):
+    migrant_id = models.CharField(max_length=30,primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    birthdate = models.CharField(max_length=30)
-    occupation = models.CharField(max_length=30)
-    message = models.CharField(max_length=30)
+    age = models.CharField(max_length=3)
+    profession = models.CharField(max_length=30)
+    message = models.CharField(max_length=255, null=True)
+    message_img_path = models.CharField(max_length=255, null=True)
+    anonymity = models.CharField(max_length=30)
 
 def uploadFormToDB(form_details):
 
     dump = json.dumps(form_details)
     data = json.loads(dump, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
 
+    p = Migrant(first_name=data.first_name, last_name=data.last_name, age = data.age , profession = data.profession, message = data.message, message_img = data.message_img, anonymity = data.anonymity)
+    p.save()
 
-    print(data.first_name)
-    #Save to database. Check datase content
+    m = Migrant.objects.all()
+    print(m)
 
+    return 200
 
 #TODO: Model to change JPG to Computer Text
 def JPEGtoText():
     image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Cursive_Writing_on_Notebook_paper.jpg/800px-Cursive_Writing_on_Notebook_paper.jpg"
+    ocr_subscription_key = "e3ce4c5f3d254832b89e0e0e996ecb8f"
+    ocr_base_url = "https://westeurope.api.cognitive.microsoft.com/vision/v1.0/"
 
     text_recognition_url = ocr_base_url + "RecognizeText"
     print(text_recognition_url)
