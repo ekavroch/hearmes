@@ -1,17 +1,46 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template.loader import get_template
-from django.http import HttpRequest
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+import requests
+import datetime
+import json
 
 # Create your views here.
 ##TODO: Create view of an article
-# TEMPLATE
-#/*def my_view(request):
-    # ...
-  #  if foo:
- #       return HttpResponseNotFound('<h1>Page not found</h1>')
-#    else:
-#        return HttpResponse('<h1>Page was found</h1>')
-##TODO: Create view of 2 sentences
 
-## TODO: Create view of submission page
+class RegisterView(CreateView):
+    template_name = 'register.html'
+    form_class = UserCreationForm
+
+def registerRefugee(request):
+    #Prepare data:
+    first_name = request.GET.get('first_name', None)
+    last_name = request.GET.get('last_name', None)
+    destination = request.GET.get('destination', None)
+    age = requests.GET.get('age', None)
+    story = requests.GET.get('story', None)
+    job = requests.GET.get('job', None)
+    tags = requests.GET.get('tags', None)
+    date = datetime.datetime.now()
+
+    #JSON:
+    refugee = {
+        "first_name":first_name,
+        "last_name":last_name,
+        "destination":destination,
+        "age":age,
+        "story":story,
+        "job":job,
+        "tags":tags,
+        "date":date
+    }
+
+    #Send to DB:
+
+
+
+
+
+
