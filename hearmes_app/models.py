@@ -92,5 +92,10 @@ def analyzeStory(story):
 #TODO: Model to get 2 sentences
 
 #TODO: Model to upload to database
+def updateDB(id, field, value):
+
+    m = Migrant.objects.filter(pk=id)
+    setattr(m, field, value)  # f.foo=bar
+    m.save()
 
 #TODO: Model to retrive from database based on tags
