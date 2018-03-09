@@ -1,17 +1,43 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template.loader import get_template
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+import requests
 import datetime
 
-# Create your views here.
-##TODO: Create view of an article
 
-def current_datetime(request):
-    now = datetime.datetime.now()
-    t = get_template('test.html')
-    html = t.render({'current_date': now})
-    return HttpResponse(html)
+class RegisterView(CreateView):
+    template_name = 'register.html'
+    form_class = UserCreationForm
 
-##TODO: Create view of 2 sentences
+def registerRefugee(request):
+    #Prepare data:
+    first_name = request.GET.get('first_name', None)
+    last_name = request.GET.get('last_name', None)
+    destination = request.GET.get('destination', None)
+    age = requests.GET.get('age', None)
+    story = requests.GET.get('story', None)
+    job = requests.GET.get('job', None)
+    tags = requests.GET.get('tags', None)
+    date = datetime.datetime.now()
 
-##TODO: Create view of registration page
+    #JSON:
+    refugee = {
+        "first_name":first_name,
+        "last_name":last_name,
+        "destination":destination,
+        "age":age,
+        "story":story,
+        "job":job,
+        "tags":tags,
+        "date":date
+    }
+
+    #Send to DB:
+
+
+
+
+
+
