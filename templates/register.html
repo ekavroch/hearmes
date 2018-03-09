@@ -1,5 +1,94 @@
-<html>
-    <body>
-        It is now.
-    </body>
+<html xmlns="http://www.w3.org/1999/html">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Story Submission</title>
+      
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/yeti/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+
+  <body>
+  <h2 class="text-muted">Submission Guide</h2>
+
+      <div class="jumbotron">
+
+        <form id="inputForm">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="nicknames work too!">
+          </div>
+
+            <div class="form-group">
+                <label>Surname</label>
+                <input type="text" class="form-control" id="lastName" placeholder="only if ok with it">
+            </div>
+
+            <div class="form-group">
+                <label> Age </label>
+                <input type="text" class="form-control" id="age" placeholder="...">
+            </div>
+
+            <div class="form-group">
+                <label> Profession </label>
+                <input type="text" class="form-control" id="profession" placeholder="...">
+            </div>
+
+          <div class="form-group">
+                <label for="intendRes">Intended Destination</label>
+                <select id="intendRes" class="form-control">
+                  <option value="Germany">Germany</option>
+                  <option value="France">France</option>
+                  <option value="Finland">Finland</option>
+                    <option value="Sweden">Finland</option>
+                  <option value = "Canada">Canada</option>
+                    <option value="USA">United States</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label> Story </label>
+                <input type="text" class="form-control" id="story" placeholder="...">
+            </div>
+
+                             <div class="col-xs-6">
+                    <label for="exampleInputFile"></label>
+                    <input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file">
+                    <small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
+                </div>
+
+
+             <fieldset class="form-group">
+                <legend>Story format</legend>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
+                        Digital
+                    </label>
+                </div>
+
+                 <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+                        Handwritten (upload file)
+                    </label>
+                 </div>
+    </fieldset>
+
+
+
+            <div class="form-group">
+                <label class="form-check-label">
+                <input class="form-check-input" value="" checked="" type="checkbox">
+                    I claim anonymity and therefore my real name is not to be published
+                </label>
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+  </body>
 </html>
