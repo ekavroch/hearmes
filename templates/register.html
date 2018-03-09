@@ -1,20 +1,9 @@
-<html xmlns="http://www.w3.org/1999/html">
+{% extends 'base.html' %}
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Story Submission</title>
-      
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/yeti/bootstrap.min.css" rel="stylesheet"/>
-  </head>
-
-  <body>
-  <h2 class="text-muted">Submission Guide</h2>
-
-      <div class="jumbotron">
-
+    {% block content %}
+        <div class="jumbotron">
         <form id="inputForm">
+
           <div class="form-group">
             <label>Name</label>
             <input type="text" class="form-control" id="firstName" placeholder="nicknames work too!">
@@ -52,14 +41,14 @@
                 <input type="text" class="form-control" id="story" placeholder="...">
             </div>
 
-                             <div class="col-xs-6">
-                    <label for="exampleInputFile"></label>
-                    <input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file">
-                    <small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
-                </div>
+            <div class="col-xs-6">
+                <label for="exampleInputFile"></label>
+                <input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file">
+                <small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
+            </div>
 
 
-             <fieldset class="form-group">
+             <div class="form-group">
                 <legend>Story format</legend>
                 <div class="form-check">
                     <label class="form-check-label">
@@ -67,6 +56,7 @@
                         Digital
                     </label>
                 </div>
+             </div>
 
                  <div class="form-check">
                     <label class="form-check-label">
@@ -74,7 +64,7 @@
                         Handwritten (upload file)
                     </label>
                  </div>
-    </fieldset>
+
 
 
 
@@ -90,5 +80,4 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         </div>
-  </body>
-</html>
+        {%  endblock %}
