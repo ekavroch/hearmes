@@ -5,7 +5,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 import requests
 import datetime
+import json
 
+# Create your views here.
+##TODO: Create view of an article
 
 class RegisterView(CreateView):
     template_name = 'register.html'
