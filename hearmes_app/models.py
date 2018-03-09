@@ -3,7 +3,29 @@ import requests
 from collections import namedtuple
 import json
 import urllib.parse
-from newspaper import Article
+
+# from gensim.summarization import summarize
+#
+# text = "Thomas A. Anderson is a man living two lives. By day he is an average computer programmer and by night a hacker known as Neo. Neo has always questioned his reality, but the truth is far beyond his imagination. Neo finds himself targeted by the police when he is contacted by Morpheus, a legendary computer hacker branded a terrorist by the government. Morpheus awakens Neo to the real world, a ravaged wasteland where most of humanity have been captured by a race of machines that live off of the humans' body heat and electrochemical energy and who imprison their minds within an artificial reality known as the Matrix. As a rebel against the machines, Neo must return to the Matrix and confront the agents: super-powerful computer programs devoted to snuffing out Neo and the entire human rebellion. "
+# print('Summary:')
+# print(summarize(text))
+
+# from newspaper import Article
+#
+# def news_article_parser():
+#     url="http://money.cnn.com/2018/03/09/news/economy/trump-tariffs-global-reaction/index.html"
+#     article = Article(url)
+#     # Definte article URL and create Article object using Article function
+#     article.download()  # Download the article
+#     article.html  # Print HTML of article
+#     article.parse()  # Parse the HTML file
+#     article.text = "By day he is an average computer programmer and by night a hacker known as Neo. Neo has always questioned his reality, but the truth is far beyond his imagination.Neo finds himself targeted by the police when he is contacted by Morpheus, a legendary computer hacker branded a terrorist by the government.Morpheus awakens Neo to the real world, a ravaged wasteland where most of humanity have been captured by a race of machines that live off of the humans' body heat and electrochemical energy and who imprison their minds within an artificial reality known as the Matrix."
+#     article.title = "Neo the computer programmer"
+#     article.nlp()
+#     print(article.keyword)
+#     print(article.summary)
+#
+# news_article_parser()
 
 # Create your models here.
 #TODO: Model to upload document & details: Name, Birthdate, Document
@@ -91,6 +113,8 @@ def analyzeStory(story):
     return key_phrases, sentiment
 
 #TODO: Model to get 2 sentences
+def splitSentences(text):
+    return text.split(".")
 
 #TODO: Model to upload to database
 def updateDB(id, field, value):
@@ -103,3 +127,18 @@ def retrieveEntity(id):
     return Migrant.objects.filter(pk=id)
 
 #TODO: Model to retrive from database based on tags
+
+#TEST
+def news_article_parser(url):
+    article = Article(url)
+    # Definte article URL and create Article object using Article function
+    article.download()  # Download the article
+    article.html  # Print HTML of article
+    article.parse()  # Parse the HTML file
+    print(article)
+    article.nlp()
+
+    return article
+
+
+news_article_parser("https://www.thestar.com.my/news/nation/2018/03/09/ec-submits-final-report-on-redelineation-to-pm/")
