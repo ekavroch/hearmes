@@ -29,16 +29,17 @@ def uploadFormToDB(form_details):
 
     dump = json.dumps(form_details)
     data = json.loads(dump, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
+
     try:
+        # p = Migrant(first_name="Daren", last_name="Tan", age="22", profession="Data Scientist", message_img_path="hehe", anonymity="false")
         p = Migrant(first_name=data.first_name, last_name=data.last_name, destination = data.destination, age=data.age, job=data.job,
                     message_img_path=data.story_url, tags=data.tags, date=data.date)
         p.save()
     except Exception as e:
-        print(e)
         return e
 
     m = Migrant.objects.latest('migrant_id')
-    print(m)
+
     return m
 
 #TODO: Model to change JPG to Computer Text
@@ -105,5 +106,13 @@ def analyzeStory(story):
 #TODO: Model to get 2 sentences
 
 #TODO: Model to upload to database
+def updateDB(id, field, value):
+
+    m = Migrant.objects.filter(pk=id)
+    setattr(m, field, value)  # f.foo=bar
+    m.save()
+
+def retrieveEntity(id):
+    return Migrant.objects.filter(pk=id)
 
 #TODO: Model to retrive from database based on tags
