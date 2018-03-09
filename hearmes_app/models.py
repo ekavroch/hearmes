@@ -1,21 +1,14 @@
 from django.db import models
 import requests
-import json
-from pprint import pprint
 from collections import namedtuple
-
-#AZURE STUFF:
-subscription_key="dac80f6bdc41438dbb9dcc1c9a81b3e1"
-assert subscription_key
-text_analytics_base_url = "https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/"
-language_api_url = text_analytics_base_url + "languages"
-key_phrase_api_url = text_analytics_base_url + "keyPhrases"
-sentiment_api_url = text_analytics_base_url + "sentiment"
+import json
+import urllib.parse
 
 #AZURE OCR TO TEXT:
 ocr_subscription_key = "e3ce4c5f3d254832b89e0e0e996ecb8f"
 assert ocr_subscription_key
 ocr_base_url = "https://westeurope.api.cognitive.microsoft.com/vision/v1.0/"
+
 
 # Create your models here.
 #TODO: Model to upload document & details: Name, Birthdate, Document
@@ -68,16 +61,27 @@ def JPEGtoText():
     for line in analysis["recognitionResult"]["lines"]:
         print(line['text'])
 
-#TODO: Model for translation
+#Model for transalation
+def transalte (target, text):
+    payload = {'to': target, 'text': urllib.parse.quote(text)}
+    headers = {'Ocp-Apim-Subscription-Key': 'b0e5aa9d010346e2954b4ff20087b6dd'}
+    response = requests.get('https://api.microsofttranslator.com/V2/Http.svc/Translate', params=payload, headers=headers)
+    return response.text
 
 #Model for sentiment and keywords detection
-def analyzeDoc(doc):
-    headers = {"Ocp-Apim-Subscription-Key": subscription_key}
-    sentiment_phrases_response = requests.post(sentiment_api_url, headers=headers, json=doc)
-    key_phrases_response = requests.post(key_phrase_api_url, headers=headers, json=doc)
-    key_phrases = key_phrases_response.json()
-    sentiment_phrases = key_phrases_response.json()
+def analyzeStory(story):
+    #URLS
+    text_analytics_base_url = "https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/"
+    language_api_url = text_analytics_base_url + "languages"
+    key_phrase_api_url = text_analytics_base_url + "keyPhrases"
+    sentiment_api_url = text_analytics_base_url + "sentiment"
 
+    headers = {"Ocp-Apim-Subscription-Key": 'dac80f6bdc41438dbb9dcc1c9a81b3e1'}
+    sentiment_response = requests.post(sentiment_api_url, headers=headers, json=story)
+    key_phrases_response = requests.post(key_phrase_api_url, headers=headers, json=story)
+    key_phrases = key_phrases_response.json()
+    sentiment = key_phrases_response.json()
+    return key_phrases, sentiment
 
 #TODO: Model to get 2 sentences
 
