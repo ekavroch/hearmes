@@ -7,7 +7,7 @@ import urllib.parse
 # Create your models here.
 #TODO: Model to upload document & details: Name, Birthdate, Document
 class Migrant(models.Model):
-    migrant_id = models.CharField(max_length=30,primary_key=True)
+    migrant_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     age = models.CharField(max_length=3)
@@ -16,18 +16,22 @@ class Migrant(models.Model):
     message_img_path = models.CharField(max_length=255, null=True)
     anonymity = models.CharField(max_length=30)
 
-def uploadFormToDB(form_details):
+def uploadFormToDB():
 
-    dump = json.dumps(form_details)
-    data = json.loads(dump, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
+    # dump = json.dumps(form_details)
+    # data = json.loads(dump, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
+    #
+    # p = Migrant(first_name=data.first_name, last_name=data.last_name, age = data.age , profession = data.profession, message = data.message, message_img = data.message_img, anonymity = data.anonymity)
 
-    p = Migrant(first_name=data.first_name, last_name=data.last_name, age = data.age , profession = data.profession, message = data.message, message_img = data.message_img, anonymity = data.anonymity)
-    p.save()
+    try:
+        p = Migrant(first_name="Daren", last_name="Tan", age="22", profession="Data Scientist", message_img_path="hehe", anonymity="false")
+        p.save()
+    except Exception as e:
+        return e
 
-    m = Migrant.objects.all()
-    print(m)
+    m = Migrant.objects.latest('migrant_id')
 
-    return 200
+    return m
 
 #TODO: Model to change JPG to Computer Text
 def JPEGtoText():
@@ -54,11 +58,14 @@ def JPEGtoText():
         analysis = response_final.json()
         time.sleep(1)
 
+    full_text = ""
     for line in analysis["recognitionResult"]["lines"]:
-        print(line['text'])
+        full_text += line['text']
+
+    return full_text
 
 #Model for transalation
-def transalte (target, text):
+def translate (target, text):
     payload = {'to': target, 'text': urllib.parse.quote(text)}
     headers = {'Ocp-Apim-Subscription-Key': 'b0e5aa9d010346e2954b4ff20087b6dd'}
     response = requests.get('https://api.microsofttranslator.com/V2/Http.svc/Translate', params=payload, headers=headers)
