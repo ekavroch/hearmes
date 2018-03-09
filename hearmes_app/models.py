@@ -10,21 +10,24 @@ class Migrant(models.Model):
     migrant_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    destination = models.CharField(max_length=30)
     age = models.CharField(max_length=3)
-    profession = models.CharField(max_length=30)
-    message = models.CharField(max_length=255, null=True)
+    job = models.CharField(max_length=30)
+    message_text = models.CharField(max_length=255, null=True)
     message_img_path = models.CharField(max_length=255, null=True)
-    anonymity = models.CharField(max_length=30)
+    tags = models.CharField(max_length=255, null=True)
+    date = models.CharField(max_length=30, null=True)
+    anonymity = models.CharField(max_length=30, null=True)
 
-def uploadFormToDB():
+def uploadFormToDB(form_details):
 
-    # dump = json.dumps(form_details)
-    # data = json.loads(dump, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
-    #
-    # p = Migrant(first_name=data.first_name, last_name=data.last_name, age = data.age , profession = data.profession, message = data.message, message_img = data.message_img, anonymity = data.anonymity)
+    dump = json.dumps(form_details)
+    data = json.loads(dump, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
 
     try:
-        p = Migrant(first_name="Daren", last_name="Tan", age="22", profession="Data Scientist", message_img_path="hehe", anonymity="false")
+        # p = Migrant(first_name="Daren", last_name="Tan", age="22", profession="Data Scientist", message_img_path="hehe", anonymity="false")
+        p = Migrant(first_name=data.first_name, last_name=data.last_name, destination = data.destination, age=data.age, job=data.job,
+                    message_img_path=data.story_url, tags=data.tags, data=data.date)
         p.save()
     except Exception as e:
         return e
