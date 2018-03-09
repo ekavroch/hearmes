@@ -3,6 +3,7 @@ import requests
 from collections import namedtuple
 import json
 import urllib.parse
+from newspaper import Article
 
 # Create your models here.
 #TODO: Model to upload document & details: Name, Birthdate, Document
@@ -97,5 +98,8 @@ def updateDB(id, field, value):
     m = Migrant.objects.filter(pk=id)
     setattr(m, field, value)  # f.foo=bar
     m.save()
+
+def retrieveEntity(id):
+    return Migrant.objects.filter(pk=id)
 
 #TODO: Model to retrive from database based on tags
