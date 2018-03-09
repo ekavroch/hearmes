@@ -58,7 +58,7 @@ def JPEGtoText():
         print(line['text'])
 
 #Model for transalation
-def transalte (target, text):
+def translate (target, text):
     payload = {'to': target, 'text': urllib.parse.quote(text)}
     headers = {'Ocp-Apim-Subscription-Key': 'b0e5aa9d010346e2954b4ff20087b6dd'}
     response = requests.get('https://api.microsofttranslator.com/V2/Http.svc/Translate', params=payload, headers=headers)

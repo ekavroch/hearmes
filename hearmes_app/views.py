@@ -52,7 +52,7 @@ def registerRefugee(request):
     #Send to DB:
     savedRefugee = models.uploadFormToDB(refugee)
     text = models.JPEGtoText(story_url)
-    model.updateDB(savedRefugee.id,"story_text", text)
+    #model.updateDB(savedRefugee.id,"story_text", text)
 
     data = {
         'res': 200,
