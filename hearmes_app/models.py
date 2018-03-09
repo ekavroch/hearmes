@@ -4,12 +4,6 @@ from collections import namedtuple
 import json
 import urllib.parse
 
-#AZURE OCR TO TEXT:
-ocr_subscription_key = "e3ce4c5f3d254832b89e0e0e996ecb8f"
-assert ocr_subscription_key
-ocr_base_url = "https://westeurope.api.cognitive.microsoft.com/vision/v1.0/"
-
-
 # Create your models here.
 #TODO: Model to upload document & details: Name, Birthdate, Document
 class Person(models.Model):
@@ -32,6 +26,8 @@ def uploadFormToDB(form_details):
 #TODO: Model to change JPG to Computer Text
 def JPEGtoText():
     image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Cursive_Writing_on_Notebook_paper.jpg/800px-Cursive_Writing_on_Notebook_paper.jpg"
+    ocr_subscription_key = "e3ce4c5f3d254832b89e0e0e996ecb8f"
+    ocr_base_url = "https://westeurope.api.cognitive.microsoft.com/vision/v1.0/"
 
     text_recognition_url = ocr_base_url + "RecognizeText"
     print(text_recognition_url)
