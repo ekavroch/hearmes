@@ -19,5 +19,5 @@ from hearmes_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('time/', views.current_datetime, name="current_datetime")
+    path('time/', views.showStory, name="showStory")
 ]
