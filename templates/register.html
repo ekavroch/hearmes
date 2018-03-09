@@ -1,41 +1,57 @@
 {% extends 'base.html' %}
 
+{% block javascript %}
+  <script type="text/javascript">
+    $("#submit").click(function (e) {
+        e.preventDefault();
+    var data = new FormData($('#myform')[0]);
+
+
+      $.ajax({
+        url: '/ajax/register/',
+          type: 'POST',
+        data: data,
+        dataType: 'json',
+          processData: false,
+        contentType: false,
+        success: function (data) {
+          console.log(data)
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
+
 {% block content %}
-  <form method="post">
+<div class="jumbotron">
+
+  <form method="post" id="myform" enctype="multipart/form-data">
+    {% csrf_token %}
         <div class="form-group">
-            <label for="first_name"> First Name</label>
-                <div class="col-md-6">
-            <input class="form-control" id="userName" aria-describedby="anonClaim" placeholder="..." type="text">
-            <small id="anonClaim" class="form-text text-muted">Nicknames are ok too! </small>
-            </div>
-            </div>
+            <label>Name</label>
+            <input type="text" class="form-control" id="first_name" placeholder="nicknames work too!">
+          </div>
 
-             <div class="form-group">
-            <label for="last_name"> Last Name (optional)</label>
-                 <div class="col-md-6">
-            <input class="form-control" id="lastName" aria-describedby="nameClaim" placeholder="..." type="text">
-            <small id="anonClaim" class="form-text text-muted">Fill out only if comfortable</small>
-            </div>
-             </div>
 
             <div class="form-group">
-                <label for="age"> Age </label>
-                    <div class="col-md-6">
-                        <input class="form-control" id="age" aria-describedby="ageField" type="text">
-                    </div>
+                <label>Surname</label>
+                <input type="text" class="form-control" name="last_name" placeholder="only if ok with it">
             </div>
 
             <div class="form-group">
-                <label for="job"> Profession </label>
-                    <div class="col-md-6">
-                        <input class="form-control" id="profession" aria-describedby="profession" type="text">
-                    </div>
+                <label> Age </label>
+                <input type="text" class="form-control" name="age" placeholder="...">
             </div>
 
+            <div class="form-group">
+                <label> Profession </label>
+                <input type="text" class="form-control" name="job" placeholder="...">
+            </div>
 
-             <div class="form-group">
-                <label for="destination">Intended Destination</label>
-                <select class="form-control" name="destination">
+        <div class="form-group">
+            <label for="destination">Intended Destination</label>
+            <select class="form-control" name="destination">
                     <option value="AF">Afghanistan</option>
                     <option value="AX">Åland Islands</option>
                     <option value="AL">Albania</option>
@@ -285,47 +301,29 @@
                     <option value="YE">Yemen</option>
                     <option value="ZM">Zambia</option>
                     <option value="ZW">Zimbabwe</option>
-                </select>
+            </select>
+        </div>
 
-               <div class="form-group">
-                    <label for="exampleTextarea">Type your story here or upload a photo</label>
-                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-               </div>
-
-                 <div class="col-xs-6">
-                    <label for="exampleInputFile"></label>
-                    <input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file">
-                    <small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
-                </div>
-
-             <!---<fieldset class="form-group">
-                <legend>Story format</legend>
-                <div class="form-check">
-                    <label class="form-check-label">
-                    <input class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
-                        Digital
-                    </label>
-                </div>
-
-                 <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
-                        Handwritten (upload file)
-                    </label>
-                 </div>
-            </fieldset>-->
+            <div class="col-xs-6">
+                <label for="exampleInputFile"></label>
+                <input class="form-control-file" name="story" aria-describedby="fileHelp" type="file">
+                <small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
+            </div>
 
 
-    <fieldset class="form-group">
-      <legend>Anonymity Preferences</legend>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" value="" checked="" type="checkbox">
-          I abide by the anonymity claim
-        </label>
-      </div>
-    </fieldset>
-    <button type="submit" class="btn btn-primary">Submit</button>
 
-  </form>
-{% endblock %}
+
+
+            <div class="form-group">
+                <label class="form-check-label">
+                <input class="form-check-input" value="" checked="" type="checkbox">
+                    I claim anonymity and therefore my real name is not to be published
+                </label>
+            </div>
+
+
+
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+        {%  endblock %}
