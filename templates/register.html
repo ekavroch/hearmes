@@ -24,39 +24,30 @@
 {% endblock %}
 
 {% block content %}
+<div class="jumbotron">
 
   <form method="post" id="myform" enctype="multipart/form-data">
     {% csrf_token %}
         <div class="form-group">
-            <label for="first_name"> First Name</label>
-                <div class="col-md-6">
-            <input class="form-control" name="first_name" aria-describedby="anonClaim" placeholder="..." type="text">
-            <small id="anonClaim" class="form-text text-muted">Nicknames are ok too! </small>
+            <label>Name</label>
+            <input type="text" class="form-control" id="first_name" placeholder="nicknames work too!">
+          </div>
+
+
+            <div class="form-group">
+                <label>Surname</label>
+                <input type="text" class="form-control" name="last_name" placeholder="only if ok with it">
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="last_name"> Last Name (optional)</label>
-                 <div class="col-md-6">
-            <input class="form-control" name="last_name" aria-describedby="nameClaim" placeholder="..." type="text">
-            <small id="anonClaim" class="form-text text-muted">Fill out only if comfortable</small>
+            <div class="form-group">
+                <label> Age </label>
+                <input type="text" class="form-control" name="age" placeholder="...">
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="age"> Age </label>
-                <div class="col-md-6">
-                    <input class="form-control" name="age" aria-describedby="ageField" type="text">
-                </div>
-        </div>
-
-        <div class="form-group">
-            <label for="job"> Profession </label>
-                <div class="col-md-6">
-                    <input class="form-control" name="job" aria-describedby="profession" type="text">
-                </div>
-        </div>
-
+            <div class="form-group">
+                <label> Profession </label>
+                <input type="text" class="form-control" name="job" placeholder="...">
+            </div>
 
         <div class="form-group">
             <label for="destination">Intended Destination</label>
@@ -313,25 +304,26 @@
             </select>
         </div>
 
-
-                 <div class="col-xs-6">
-                    <label for="exampleInputFile"></label>
-                    <input class="form-control-file" name="story" name="story" aria-describedby="fileHelp" type="file">
-                    <small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
-                </div>
-
+            <div class="col-xs-6">
+                <label for="exampleInputFile"></label>
+                <input class="form-control-file" name="story" aria-describedby="fileHelp" type="file">
+                <small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
+            </div>
 
 
-        <fieldset class="form-group">
-          <legend>Anonymity Preferences</legend>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" value="" checked="" type="checkbox">
-              I abide by the anonymity claim
-            </label>
-          </div>
-        </fieldset>
-        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
 
-  </form>
-{% endblock %}
+
+
+            <div class="form-group">
+                <label class="form-check-label">
+                <input class="form-check-input" value="" checked="" type="checkbox">
+                    I claim anonymity and therefore my real name is not to be published
+                </label>
+            </div>
+
+
+
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+        {%  endblock %}
