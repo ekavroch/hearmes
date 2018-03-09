@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView
 import requests
 import datetime
 import json
+from hearmes_app import models
 
 # Create your views here.
 ##TODO: Create view of an article
@@ -38,7 +39,8 @@ def registerRefugee(request):
     }
 
     #Send to DB:
-
+    res = models.uploadFormToDB(refugee)
+    return res
 
 
 
