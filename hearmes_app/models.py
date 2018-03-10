@@ -3,6 +3,12 @@ import requests
 from collections import namedtuple
 import json
 import urllib.parse
+from azure.storage.blob import BlockBlobService
+from azure.storage.blob import PublicAccess
+from azure.storage.blob import ContentSettings
+import os
+
+block_blob_service = BlockBlobService(account_name='hearmes', account_key='NZ/H80jO9ma8KsVS9pi0EFgZEj5FhYZYHaGqYg5/HKXP+EhWytB0JbUpWqktKqkfWnw89AwPp4//Q8YhZN6tqg==')
 
 # Create your models here.
 #TODO: Model to upload document & details: Name, Birthdate, Document
@@ -27,7 +33,7 @@ def uploadFormToDB(form_details):
     try:
         # p = Migrant(first_name="Daren", last_name="Tan", age="22", profession="Data Scientist", message_img_path="hehe", anonymity="false")
         p = Migrant(first_name=data.first_name, last_name=data.last_name, destination = data.destination, age=data.age, job=data.job,
-                    message_img_path=data.story_url, tags=data.tags, data=data.date)
+                    message_img_path=data.story_url, tags=data.tags, date=data.date)
         p.save()
     except Exception as e:
         return e
@@ -37,8 +43,16 @@ def uploadFormToDB(form_details):
     return m
 
 #TODO: Model to change JPG to Computer Text
-def JPEGtoText():
-    image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Cursive_Writing_on_Notebook_paper.jpg/800px-Cursive_Writing_on_Notebook_paper.jpg"
+def JPEGtoText(image_url):
+    img_name = image_url.rsplit('/', 1)[-1]
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    print(BASE_DIR)
+    block_blob_service.create_blob_from_path(
+        'stories',
+        img_name,
+        BASE_DIR + image_url,
+    )
+
     ocr_subscription_key = "e3ce4c5f3d254832b89e0e0e996ecb8f"
     ocr_base_url = "https://westeurope.api.cognitive.microsoft.com/vision/v1.0/"
 
@@ -47,7 +61,7 @@ def JPEGtoText():
 
     headers = {'Ocp-Apim-Subscription-Key': ocr_subscription_key}
     params = {'handwriting': True}
-    data = {'url': image_url}
+    data = {'url': "https://hearmes.blob.core.windows.net/stories/"+img_name}
     response = requests.post(text_recognition_url, headers=headers, params=params, json=data)
     response.raise_for_status()
 
@@ -63,7 +77,7 @@ def JPEGtoText():
 
     full_text = ""
     for line in analysis["recognitionResult"]["lines"]:
-        full_text += line['text']
+        full_text += line['text'] + ' '
 
     return full_text
 
