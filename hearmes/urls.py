@@ -20,5 +20,6 @@ from hearmes_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', views.RegisterView.as_view(), name="register"),
+    path('search/', views.searchQuotes.as_view(), name="search"),
     path('ajax/register/', views.registerRefugee, name="register_refugee")
 ]
