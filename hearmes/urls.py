@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', views.RegisterView.as_view(), name="register"),
     path('search/', views.searchQuotes.as_view(), name="search"),
+    path('results/', views.searchKeywords.as_view(), name="results"),
     path('ajax/register/', views.registerRefugee, name="register_refugee")
 ]

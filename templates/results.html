@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+    <style type="text/css">
+    h1 {
+      text-align: center;
+        padding: 20px 0;
+    }
+    li {
+        position: relative;
+        width: 80%;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+    }
+    #hearmes_quote {
+        font-size: 300px;
+        position: absolute;
+        margin-top: -110px;
+        margin-left: -120px;
+        color: rgb(90, 144, 71);
+        opacity: 0.2;
+    }
+    #hearmes_p {
+        font-size: 30px;
+        line-height: 1.2;
+        border-top: 6px solid rgb(90, 144, 71);
+        border-bottom: 6px solid rgb(90, 144, 71);
+        padding: 30px 0 20px 0;
+        position: relative;
+        overflow: hidden;
+        widows:100%;
+    }
+    #hearmes_text {
+        style="position: relative; display: block; z-index: 100;
+    }
+    #hearmes_name {
+        font-size: 18px;
+        display: block;
+        padding-top: 20px;
+        padding-left: 20px;
+        position: relative;
+        z-index: 100;
+        color: rgb(90, 144, 71);
+        font-weight: bold;
+    }
+    #hearmes_link {
+        font-size: 20px;
+        display: block;
+        padding-top: 30px;
+        text-align: left;
+        padding-left: 0px;
+        position: relative;
+        z-index: 100;
+        text-decoration: underline; color: black;
+    }
+    #hearmes_logo {
+        position: absolute;
+        top: 0;
+        z-index: 0;
+        height: 120%;
+        opacity: 0.2;
+        top: -20%;
+        right: -60px;
+    }
+    .hearme_piece {
+        width: 50%;
+        position: relative;
+    }
+    .hearme_code {
+        width: 50%;
+        background-color: black;
+        position: absolute;
+        top: 0;
+        overflow-y: scroll;
+        height: 100%;
+        right: -100%;
+        width: 100%;
+        padding: 20px;
+
+    }
+    code {
+        color: green;
+    }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-contact2">
+    <h1>Results for keyword "{{ key }}"</h1>
+    <ul>
+        {% for ad in ads %}
+            <li>
+                <div class="hearme_piece">
+                    <span id="hearmes_quote">“</span>
+                    <p id="hearmes_p">
+                        <span id="hearmes_text">{{ ad.excerpt }}</span>
+                        <span id="hearmes_name">-{{ ad.initials }} {{ ad.age }}, {{ ad.destination }}</span>
+                        <a target="_blank" href="http://127.0.0.1:8000/read/{{ ad.id }}" id="hearmes_link">Want to read the rest? click!</a>
+                        <img id="hearmes_logo" src="https://hearmes.blob.core.windows.net/stories/hearmes.png">
+                    </p>
+
+                <div class="hearme_code">
+                <code>
+                    <h3 style="color:white">HTML SNNIPET</h3>
+                    &lt;style type="text/css"&gt;
+                    #hearmes_quote {
+                        font-size: 300px;
+                        position: absolute;
+                        margin-top: -70px;
+                        margin-left: -120px;
+                        color: rgb(90, 144, 71);
+                        opacity: 0.2;
+                    }
+                    #hearmes_p {
+                        font-size: 30px;
+                        line-height: 1.2;
+                        border-top: 6px solid rgb(90, 144, 71);
+                        border-bottom: 6px solid rgb(90, 144, 71);
+                        padding: 30px 0 20px 0;
+                        position: relative;
+                        overflow: hidden;
+                        widows:100%;
+                    }
+                    #hearmes_text {
+                        style="position: relative; display: block; z-index: 100;
+                    }
+                    #hearmes_name {
+                        font-size: 18px;
+                        display: block;
+                        padding-top: 20px;
+                        padding-left: 20px;
+                        position: relative;
+                        z-index: 100;
+                        color: rgb(90, 144, 71);
+                        font-weight: bold;
+                    }
+                    #hearmes_link {
+                        font-size: 20px;
+                        display: block;
+                        padding-top: 30px;
+                        text-align: left;
+                        padding-left: 0px;
+                        position: relative;
+                        z-index: 100;
+                        text-decoration: underline; color: black;
+                    }
+                    #hearmes_logo {
+                        position: absolute;
+                        top: 0;
+                        z-index: 0;
+                        height: 120%;
+                        opacity: 0.2;
+                        top: -20%;
+                        right: -60px;
+                    }
+                    &lt;/style&gt;
+                    &lt;span id="hearmes_quote">“&gt;/span&gt;
+                    &lt;p id="hearmes_p"&gt;
+                        &lt;span id="hearmes_text"&gt;{{ ad.excerpt }}&lt;/span&gt;
+                        &lt;span id="hearmes_name"&gt;-{{ ad.initials }} {{ ad.age }}, {{ ad.destination }}&lt;/span&gt;
+                        &lt;a target="_blank" href="http://127.0.0.1:8000/read/{{ ad.id }}" id="hearmes_link">Want to read the rest? click!&lt;/a&gt;
+                        &lt;img id="hearmes_logo" src="https://hearmes.blob.core.windows.net/stories/hearmes.png"&gt;
+                    &lt;/p&gt;
+                </code>
+                </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+{%  endblock %}

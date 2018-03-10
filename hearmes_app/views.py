@@ -9,6 +9,7 @@ import datetime
 import json
 from django.http import JsonResponse
 from hearmes_app import models
+from django.core import serializers
 
 # Create your views here.
 ##TODO: Create view of an article
@@ -33,7 +34,8 @@ class searchKeywords(View):
     template_name = 'results.html'
     def get(self, request):
         ads = models.retrieveEntityKeywords(request.GET.get('keyword'))
-        print(ads)
+        dictionaries = [obj.as_dict() for obj in ads]
+        return render(request, self.template_name, {"ads": dictionaries, "key": request.GET.get('keyword')})
 
 
 def registerRefugee(request):
@@ -71,7 +73,10 @@ def registerRefugee(request):
     savedRefugee = models.uploadFormToDB(refugee)
     text = models.JPEGtoText(story_url)
     keywords, sentiment = models.analyzeStory(text)
-    models.updateRefugee(savedRefugee.migrant_id, text, sentiment, keywords)
+    keywordsString =  ",".join(keywords)
+    sentences = models.get_top_sentence(text, keywords, 2)
+    sentencesString = ". ".join(sentences)
+    models.updateRefugee(savedRefugee.migrant_id, text, sentiment, keywordsString, sentencesString)
 
     data = {
         'res': 200,
