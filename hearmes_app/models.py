@@ -113,8 +113,22 @@ def analyzeStory(story):
     return key_phrases, sentiment
 
 #TODO: Model to get 2 sentences
-def splitSentences(text):
-    return text.split(".")
+def split_sentences(text, delimiter):
+    return text.split(delimiter)
+
+def get_top_sentence(text, keywords, n):
+    counter = 1
+    result = []
+    sentences_list = split_sentences(text, '.')
+    for sentence in reversed(sentences_list):
+        for keyword in reversed(keywords):
+            if (keyword in sentence) and (sentence not in result):
+                result.append(sentence.strip())
+                if counter == n:
+                    return result[::-1]
+                else:
+                    counter = counter + 1
+                    break
 
 #TODO: Model to upload to database
 def updateDB(id, field, value):
