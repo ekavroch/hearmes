@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title %}Registration{% endblock %}
 {% block javascript %}
   <script type="text/javascript">
     $("#submit").click(function (e) {
@@ -31,33 +31,45 @@
 {% block content %}
 <div class="jumbotron">
 
-  <form method="post" id="myform" enctype="multipart/form-data">
-    {% csrf_token %}
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="first_name" placeholder="nicknames work too!">
-          </div>
+
+	<div class="bg-contact2" style="background-image: url('images/bg-01.jpg');">
+		<div class="container-contact2">
+			<div class="wrap-contact2">
+				<form class="contact2-form validate-form" id="myform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div style="text-align: center;margin-bottom: 20px">
+                         <img src="../static/img/logo.png" style="width:200px;height:200px;text-align: center;"/>
+                    </div>
+                    <div style="text-align: center">
+                            <span class="contact2-form-title" style="text-align: center">
+						        Send us your story
+					        </span>
+                    </div>
+					<div class="wrap-input2 validate-input" data-validate="Name is required">
+						<input class="input2" type="text" name="first_name">
+						<span class="focus-input2" data-placeholder="First name"></span>
+					</div>
+
+					<div class="wrap-input2">
+						<input class="input2" type="text" name="last_name">
+						<span class="focus-input2" data-placeholder="Surname (Optional)"></span>
+					</div>
+
+					<div class="wrap-input2">
+						<input class="input2" type="text" name="age">
+						<span class="focus-input2" data-placeholder="Age"></span>
+					</div>
+
+                    <div class="wrap-input2">
+                        <input class="input2" type="text" name="job">
+                        <span class="focus-input2" data-placeholder="Profession"></span>
+                    </div>
 
 
-            <div class="form-group">
-                <label>Surname</label>
-                <input type="text" class="form-control" name="last_name" placeholder="only if ok with it">
-            </div>
-
-            <div class="form-group">
-                <label> Age </label>
-                <input type="text" class="form-control" name="age" placeholder="...">
-            </div>
-
-            <div class="form-group">
-                <label> Profession </label>
-                <input type="text" class="form-control" name="job" placeholder="...">
-            </div>
-
-        <div class="form-group">
-            <label for="destination">Intended Destination</label>
-            <select class="form-control" name="destination">
-               <option value="Afghanistan">Afghanistan</option>
+					<div class="form-group" style="width:100%">
+							<select class="destination-dd" name="destination">
+									<option value="" selected disabled>Intended Destination</option>
+ <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
                 <option value="American Samoa">American Samoa</option>
@@ -296,29 +308,54 @@
                 <option value="Yugoslavia">Yugoslavia</option>
                 <option value="Zambia">Zambia</option>
                 <option value="Zimbabwe">Zimbabwe</option>
-            </select>
-        </div>
-
-            <div class="col-xs-6">
-                <label for="exampleInputFile"></label>
-                <input class="form-control-file" name="story" aria-describedby="fileHelp" type="file">
-                <small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
-            </div>
+							</select>
+						</div>
 
 
 
-
-
-            <div class="form-group">
-                <label class="form-check-label">
-                <input class="form-check-input" value="" checked="" type="checkbox">
-                    I claim anonymity and therefore my real name is not to be published
-                </label>
-            </div>
+					<div class="col-xs-6">
+						<label for="exampleInputFile"></label>
+						<input class="form-control-file" name="story" id="exampleInputFile" aria-describedby="fileHelp" type="file" style="color: #9999A5;">
+						<small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
+					</div>
 
 
 
-            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-        </form>
-        </div>
+
+					<div class="container-contact2-form-btn">
+						<div class="wrap-contact2-form-btn">
+							<div class="contact2-form-bgbtn"></div>
+							<button class="contact2-form-btn">
+								Tell Your Story
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-23581568-13');
+	</script>
+
         {%  endblock %}

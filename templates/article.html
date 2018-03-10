@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block javascript %}
+
+  <script type="text/javascript">
+    $("#submit").click(function (e) {
+        e.preventDefault();
+    var data = new FormData($('#myform')[0]);
+
+
+      $.ajax({
+        url: '/ajax/register/',
+          type: 'POST',
+        data: data,
+        dataType: 'json',
+          processData: false,
+        contentType: false,
+        success: function (data) {
+          console.log(data)
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+
+
+
+{%  endblock %}
