@@ -24,15 +24,36 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron">
 
   <form method="post" id="myform" enctype="multipart/form-data">
     {% csrf_token %}
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="keyword" placeholder="search your post">
-          </div>
-            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+
+      <!--evi dont touch this-->
+      <div class="container-contact2">
+			<div class="wrap-contact2">
+
+                <h2> Hearmes Search </h2>
+                <p>This is Hearmes Search where news article writers and publishers can search our Database for keywords related
+                    to subjects they'd like to incorporate hearmes to</p>
+
+                <div class="wrap-input2">
+                    <label>Keyword</label>
+                    <input class="input2" type="text" name="keyword" placeholder="search your post">
+                    <span class="focus-input2"></span>
+                </div>
+
+                <div class="container-contact2-form-btn">
+						<div class="wrap-contact2-form-btn">
+							<div class="contact2-form-bgbtn"></div>
+							<button class="contact2-form-btn">
+								Search
+							</button>
+						</div>
+					</div>
+
+
+            </div>
+      </div>
         </form>
-        </div>
+
         {%  endblock %}
