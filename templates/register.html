@@ -31,10 +31,14 @@
 		<div class="container-contact2">
 			<div class="wrap-contact2">
 				<form class="contact2-form validate-form">
-					<span class="contact2-form-title">
-						Send us your story
-					</span>
-
+                    <div style="text-align: center;margin-bottom: 20px">
+                         <img src="../static/img/logo.png" style="width:200px;height:200px;text-align: center;"/>
+                    </div>
+                    <div style="text-align: center">
+                            <span class="contact2-form-title" style="text-align: center">
+						        Send us your story
+					        </span>
+                    </div>
 					<div class="wrap-input2 validate-input" data-validate="Name is required">
 						<input class="input2" type="text" name="name">
 						<span class="focus-input2" data-placeholder="First name"></span>
@@ -56,9 +60,9 @@
                     </div>
 
 
-					<div class="form-group">
-							<select class="form-control" name="destination">
-									<option value="NOPE">Intended Destination</option>
+					<div class="form-group" style="width:100%">
+							<select class="destination-dd" name="destination">
+									<option value="NOPE" selected disabled>Intended Destination</option>
 									<option value="AF">Afghanistan</option>
 									<option value="AX">Åland Islands</option>
 									<option value="AL">Albania</option>
@@ -315,7 +319,7 @@
 
 					<div class="col-xs-6">
 						<label for="exampleInputFile"></label>
-						<input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file">
+						<input class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" type="file" style="color: #9999A5;">
 						<small id="fileHelp" class="form-text text-muted">Please take a good photo</small>
 					</div>
 

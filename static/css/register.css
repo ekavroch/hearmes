@@ -104,6 +104,16 @@ iframe {
 	border: none !important;
 }
 
+select {
+    border:0px;
+    border-bottom: solid 2px #adadad;
+    outline:0px;
+    font-size: 13px;
+    color: #9999A5;
+    padding-bottom: 10px;
+    width:100%;
+}
+
 
 
 
@@ -159,7 +169,7 @@ iframe {
   color: #333333;
   line-height: 1.2;
   text-align: center;
-  padding-bottom: 90px;
+  padding-bottom: 30px;
 }
 
 
