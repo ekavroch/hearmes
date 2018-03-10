@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, View
 import requests
 import datetime
 import json
@@ -17,9 +17,27 @@ class RegisterView(CreateView):
     template_name = 'register.html'
     form_class = UserCreationForm
 
+class showStory(View):
+    #load the whole story
+    template_name = 'story.html'
+    def get(self, request):
+        refugee = models.retrieveEntity(request.GET.get('ref_id'))
+        print(refugee)
+        return render(request, self.template_name, refugee)
+
+class searchQuotes(CreateView):
+    template_name = 'search.html'
+    form_class = UserCreationForm
+
+class searchKeywords(View):
+    template_name = 'results.html'
+    def get(self, request):
+        ads = models.retrieveEntityKeywords(request.GET.get('keyword'))
+        print(ads)
+
+
 def registerRefugee(request):
     #Prepare data:
-    print(request.POST.get('first_name'))
     first_name = request.POST.get('first_name')
     last_name = request.POST.get('last_name')
     destination = request.POST.get('destination')
@@ -52,7 +70,8 @@ def registerRefugee(request):
     #Send to DB:
     savedRefugee = models.uploadFormToDB(refugee)
     text = models.JPEGtoText(story_url)
-    #model.updateDB(savedRefugee.id,"story_text", text)
+    keywords, sentiment = models.analyzeStory(text)
+    models.updateRefugee(savedRefugee.migrant_id, text, sentiment, keywords)
 
     data = {
         'res': 200,

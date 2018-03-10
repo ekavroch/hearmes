@@ -24,6 +24,8 @@ class Migrant(models.Model):
     tags = models.CharField(max_length=255, null=True)
     date = models.CharField(max_length=30, null=True)
     anonymity = models.CharField(max_length=30, null=True)
+    sentiment = models.CharField(max_length=255, null=True)
+    excerpt = models.CharField(max_length=255, null=True)
 
 def uploadFormToDB(form_details):
 
@@ -104,15 +106,29 @@ def analyzeStory(story):
     return key_phrases, sentiment
 
 #TODO: Model to get 2 sentences
+def split_sentences(text, delimiter):
+    return text.split(delimiter)
 
-#TODO: Model to upload to database
-def updateDB(id, field, value):
+def get_top_sentence(text, keywords, n):
+    counter = 1
+    result = []
+    sentences_list = split_sentences(text, '.')
+    for sentence in reversed(sentences_list):
+        for keyword in reversed(keywords):
+            if (keyword in sentence) and (sentence not in result):
+                result.append(sentence.strip())
+                if counter == n:
+                    return result[::-1]
+                else:
+                    counter = counter + 1
+                    break
 
-    m = Migrant.objects.filter(pk=id)
-    setattr(m, field, value)  # f.foo=bar
-    m.save()
+def updateRefugee(id, text, sentiment, keywords):
+    Migrant.objects.filter(pk=id).update(message_text=text, tags=keywords, sentiment=sentiment)
 
 def retrieveEntity(id):
     return Migrant.objects.filter(pk=id)
 
-#TODO: Model to retrive from database based on tags
+def retrieveEntityKeywords(keyword):
+    return Migrant.objects.filter(tags__contains=keyword)
+
