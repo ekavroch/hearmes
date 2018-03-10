@@ -19,27 +19,26 @@ class Migrant(models.Model):
     destination = models.CharField(max_length=30)
     age = models.CharField(max_length=3)
     job = models.CharField(max_length=30)
-    message_text = models.CharField(max_length=255, null=True)
+    message_text = models.CharField(max_length=600, null=True)
     message_img_path = models.CharField(max_length=255, null=True)
     tags = models.CharField(max_length=255, null=True)
     date = models.CharField(max_length=30, null=True)
     anonymity = models.CharField(max_length=30, null=True)
+    sentiment = models.CharField(max_length=255, null=True)
+    excerpt = models.CharField(max_length=255, null=True)
 
 def uploadFormToDB(form_details):
-
     dump = json.dumps(form_details)
     data = json.loads(dump, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
-
     try:
-        # p = Migrant(first_name="Daren", last_name="Tan", age="22", profession="Data Scientist", message_img_path="hehe", anonymity="false")
         p = Migrant(first_name=data.first_name, last_name=data.last_name, destination = data.destination, age=data.age, job=data.job,
                     message_img_path=data.story_url, tags=data.tags, date=data.date)
         p.save()
     except Exception as e:
-        return e
+        print(e)
+        exit(0)
 
     m = Migrant.objects.latest('migrant_id')
-
     return m
 
 #TODO: Model to change JPG to Computer Text
@@ -78,7 +77,6 @@ def JPEGtoText(image_url):
     full_text = ""
     for line in analysis["recognitionResult"]["lines"]:
         full_text += line['text'] + ' '
-
     return full_text
 
 #Model for transalation
@@ -103,16 +101,13 @@ def analyzeStory(story):
     sentiment = key_phrases_response.json()
     return key_phrases, sentiment
 
-#TODO: Model to get 2 sentences
 
-#TODO: Model to upload to database
-def updateDB(id, field, value):
-
-    m = Migrant.objects.filter(pk=id)
-    setattr(m, field, value)  # f.foo=bar
-    m.save()
+def updateRefugee(id, text, sentiment, keywords):
+    Migrant.objects.filter(pk=id).update(message_text=text, tags=keywords, sentiment=sentiment)
 
 def retrieveEntity(id):
     return Migrant.objects.filter(pk=id)
 
-#TODO: Model to retrive from database based on tags
+def retrieveEntityKeywords(keyword):
+    return Migrant.objects.filter(tags__contains=keyword)
+
