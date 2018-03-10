@@ -24,6 +24,8 @@ class Migrant(models.Model):
     tags = models.CharField(max_length=255, null=True)
     date = models.CharField(max_length=30, null=True)
     anonymity = models.CharField(max_length=30, null=True)
+    sentiment = models.CharField(max_length=255, null=True)
+    excerpt = models.CharField(max_length=255, null=True)
 
 def uploadFormToDB(form_details):
 
@@ -121,12 +123,12 @@ def get_top_sentence(text, keywords, n):
                     counter = counter + 1
                     break
 
-#TODO: Model to upload to database
-def updateDB(id, field, value):
-
-    m = Migrant.objects.filter(pk=id)
-    setattr(m, field, value)  # f.foo=bar
-    m.save()
+def updateRefugee(id, text, sentiment, keywords):
+    Migrant.objects.filter(pk=id).update(message_text=text, tags=keywords, sentiment=sentiment)
 
 def retrieveEntity(id):
     return Migrant.objects.filter(pk=id)
+
+def retrieveEntityKeywords(keyword):
+    return Migrant.objects.filter(tags__contains=keyword)
+
