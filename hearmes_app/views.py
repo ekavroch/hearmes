@@ -25,8 +25,8 @@ def registerRefugee(request):
     destination = request.POST.get('destination')
     age = request.POST.get('age')
     job = request.POST.get('job')
-    tags = request.POST.get('tags')
-    date = datetime.datetime.now()
+    tags = ""
+    date = str(datetime.datetime.now())
     story_url = ""
 
     #Upload the story
@@ -42,7 +42,7 @@ def registerRefugee(request):
         "last_name":last_name,
         "destination":destination,
         "age":age,
-        "story":story_url,
+        "story_url":story_url,
         "job":job,
         "tags":tags,
         "date":date
@@ -52,7 +52,7 @@ def registerRefugee(request):
     #Send to DB:
     savedRefugee = models.uploadFormToDB(refugee)
     text = models.JPEGtoText(story_url)
-    model.updateDB(savedRefugee.id,"story_text", text)
+    #model.updateDB(savedRefugee.id,"story_text", text)
 
     data = {
         'res': 200,
