@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    $("#submit").click(function (e) {
+        e.preventDefault();
+    var data = new FormData($('#myform')[0]);
+
+
+      $.ajax({
+        url: '/ajax/register/',
+          type: 'POST',
+        data: data,
+        dataType: 'json',
+          processData: false,
+        contentType: false,
+        success: function (data) {
+          console.log(data)
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+
+  <form method="post" id="myform" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="keyword" placeholder="search your post">
+          </div>
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+        {%  endblock %}
