@@ -1,7 +1,6 @@
 # Hearmes
 
-![the hearmes logo](https://raw.githubusercontent.com/ekavroch/hearmes/master/static/img/logo.png)
-<img src="https://raw.githubusercontent.com/ekavroch/hearmes/master/static/img/logo.png" width="48" height="48">
+<img src="https://raw.githubusercontent.com/ekavroch/hearmes/master/static/img/logo.png" width="250" height="250">
 
 Rabbi Shaul, one of our inspiring keynote speakers during the first ever [hackathon at the Vatican](https://vhacks.org), shared the pivotal insight that what feeds the separating notion of an “Us” and a “Them” is the lack of depth, lack of a human component when we talk about unfamiliar people.
 
