@@ -28,7 +28,7 @@ If you need something more comprehensive, [there's a detailed video demo]()
 
 ## How did you build this?
 
-You can find more information on that [on the Devpost project page](devpost.com/software/hearmes)
+You can find more information on that [on the Devpost project page](https://github.com/ekavroch/hearmes/blob/master/static/img/logo.png)
 
 ## What's next for Hearmes? 
 
